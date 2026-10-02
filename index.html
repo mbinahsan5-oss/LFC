@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lahore Fried Chicken (LFC) | Taste the Legend</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#DC2626',
+              darkRed: '#991B1B',
+              gold: '#F59E0B',
+              amber: '#D97706',
+              dark: '#0F0F12',
+              card: '#18181C',
+              surface: '#24242B'
+            }
+          },
+          fontFamily: {
+            outfit: ['Outfit', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0F0F12;
+      color: #F3F4F6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .glow-gold {
+      box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.35);
+    }
+    .glow-red {
+      box-shadow: 0 0 35px -5px rgba(220, 38, 38, 0.4);
+    }
+    .glass-nav {
+      background: rgba(15, 15, 18, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .glass-card {
+      background: rgba(24, 24, 28, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    /* Hide Scrollbars */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+    .animate-float {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-gray-100 min-h-screen pb-20 md:pb-0 selection:bg-brand-gold selection:text-black">
+
+  <!-- TOP ANNOUNCEMENT / STICKY BAR -->
+  <div id="topAnnouncementBar" class="bg-gradient-to-r from-brand-darkRed via-brand-red to-brand-amber text-xs md:text-sm font-semibold py-2 px-4 text-center tracking-wide flex items-center justify-center gap-2">
+    <span id="announcementBadge" class="bg-black/30 px-2 py-0.5 rounded-full text-brand-gold text-[10px] uppercase tracking-wider">Hot Deal</span>
+    <span id="announcementText">🔥 Flat 15% OFF on Family Bundles | Use Code: <strong class="text-brand-gold underline">LFC15</strong></span>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-white/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-gold to-brand-red p-0.5 shadow-lg group-hover:scale-105 transition-transform duration-300">
+          <div class="w-full h-full bg-brand-dark rounded-[14px] flex items-center justify-center">
+            <i class="fa-solid font-bold fa-drumstick-bite text-brand-gold text-2xl group-hover:rotate-12 transition-transform"></i>
+          </div>
+        </div>
+        <div>
+          <span class="font-outfit font-black text-2xl tracking-wider text-white block leading-none">LFC<span class="text-brand-gold">.</span></span>
+          <span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">Lahore Fried Chicken</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-300">
+        <a href="#hero" class="hover:text-brand-gold transition-colors">Home</a>
+        <a href="#menu" class="hover:text-brand-gold transition-colors">Menu</a>
+        <a href="#deals" class="hover:text-brand-gold transition-colors">Family Deals</a>
+        <a href="#locations" class="hover:text-brand-gold transition-colors">Branches</a>
+        <a href="#why-us" class="hover:text-brand-gold transition-colors">Why LFC</a>
+        <a href="#reviews" class="hover:text-brand-gold transition-colors">Reviews</a>
+      </nav>
+
+      <!-- Right Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Direct Admin Button for Convenience -->
+        <button onclick="openAdminModal()" class="bg-white/5 hover:bg-white/10 text-gray-300 hover:text-brand-gold p-2.5 rounded-xl border border-white/10 transition-colors flex items-center gap-2 text-xs font-semibold" title="Open Admin Panel">
+          <i class="fa-solid fa-gear text-sm"></i>
+          <span class="hidden lg:inline">Admin</span>
+        </button>
+
+        <!-- Cart Trigger Button -->
+        <button onclick="toggleCartDrawer()" class="relative bg-gradient-to-r from-brand-gold to-brand-amber text-black font-bold px-5 py-2.5 rounded-xl flex items-center gap-3 shadow-lg hover:brightness-110 active:scale-95 transition-all">
+          <i class="fa-solid fa-bag-shopping text-lg"></i>
+          <span class="hidden sm:inline font-outfit uppercase tracking-wider text-xs">Your Cart</span>
+          <span id="cartCountBadge" class="bg-black text-brand-gold text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH CAROUSEL -->
+  <section id="hero" class="relative overflow-hidden py-12 lg:py-20">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-red/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-1/2 -right-40 w-96 h-96 bg-brand-gold/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Hero Text Content -->
+        <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-gold text-xs font-bold uppercase tracking-widest">
+            <i class="fa-solid fa-fire text-brand-red animate-bounce"></i> #1 Crispy Chicken in Lahore
+          </div>
+
+          <h1 class="font-outfit font-black text-4xl sm:text-6xl lg:text-7xl leading-none text-white tracking-tight">
+            CRISPY<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-amber-400 to-brand-red"> JUICY </span> LEGENDARY.
+          </h1>
+
+          <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal">
+            Experience authentic Lahori spice blended with ultra-crunchy secret golden batter. Freshly fried to perfection on every order!
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            <a href="#menu" class="w-full sm:w-auto bg-gradient-to-r from-brand-red to-brand-darkRed text-white font-bold text-base px-8 py-4 rounded-2xl shadow-xl glow-red hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-3">
+              <span>Order Online Now</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#deals" class="w-full sm:w-auto bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-base px-8 py-4 rounded-2xl transition-all text-center">
+              View Family Deals
+            </a>
+          </div>
+
+          <!-- Quick Stats Badge -->
+          <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-center">
+            <div>
+              <p class="font-outfit font-bold text-2xl text-brand-gold">30 Mins</p>
+              <p class="text-xs text-gray-400 uppercase tracking-wider">Fast Delivery</p>
+            </div>
+            <div>
+              <p class="font-outfit font-bold text-2xl text-brand-gold">100%</p>
+              <p class="text-xs text-gray-400 uppercase tracking-wider">Fresh Halal</p>
+            </div>
+            <div>
+              <p class="font-outfit font-bold text-2xl text-brand-gold">4.9 ★</p>
+              <p class="text-xs text-gray-400 uppercase tracking-wider">Customer Rating</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Image Slider Showcase -->
+        <div class="lg:col-span-6 relative">
+          <div class="relative mx-auto max-w-md sm:max-w-lg">
+            <div class="absolute inset-0 bg-gradient-to-tr from-brand-red/30 to-brand-gold/30 rounded-full blur-3xl transform scale-90"></div>
+
+            <div class="relative glass-card rounded-3xl p-6 sm:p-8 border border-white/15 glow-gold">
+              <div id="heroSlideContainer" class="relative aspect-square rounded-2xl overflow-hidden flex items-center justify-center">
+                <img id="heroImage" src="hero section (1).png" alt="LFC Special" class="object-contain w-full h-full max-h-[380px] animate-float transition-all duration-700">
+              </div>
+
+              <div class="flex items-center justify-between pt-6">
+                <button onclick="prevHeroSlide()" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div class="flex items-center gap-2" id="heroDots">
+                  <!-- Injected dynamically -->
+                </div>
+
+                <button onclick="nextHeroSlide()" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY FILTER NAV -->
+  <section id="menu" class="py-6 bg-brand-dark/50 sticky top-20 z-30 border-y border-white/5 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-2" id="categoryContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN MENU SECTION -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h2 class="font-outfit font-black text-3xl sm:text-4xl text-white">EXPLORE OUR MENU</h2>
+          <p class="text-sm text-gray-400">Order your favorite crispy meals directly with fast WhatsApp checkout</p>
+        </div>
+        
+        <!-- Search Input -->
+        <div class="relative w-full sm:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input type="text" id="searchInput" oninput="renderMenuItems()" placeholder="Search burgers, deals, pizza..." class="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-gold transition-colors">
+        </div>
+      </div>
+
+      <!-- Food Grid -->
+      <div id="foodGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Dynamic Menu Items Injected via JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURED FAMILY DEALS BANNER -->
+  <section id="deals" class="py-16 bg-gradient-to-b from-brand-dark to-brand-card relative overflow-hidden border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/20">Value Packs</span>
+        <h2 class="font-outfit font-black text-3xl sm:text-5xl text-white mt-3">LFC FAMILY BUNDLES</h2>
+        <p class="text-gray-400 text-sm mt-2">Maximum crunch for the whole family at unbeatable promo prices</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="dealsContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- DYNAMIC LOCATIONS / BRANCHES SECTION -->
+  <section id="locations" class="py-16 bg-brand-dark border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/20">Visit Our Outlets</span>
+        <h2 class="font-outfit font-black text-3xl sm:text-5xl text-white mt-3">OUR LOCATIONS</h2>
+        <p class="text-gray-400 text-sm mt-2">Find an LFC branch near you for dine-in, takeaway, or fast hot delivery.</p>
+      </div>
+
+      <div id="locationsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamic Location Cards Injected Here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE LFC SECTION -->
+  <section id="why-us" class="py-20 relative bg-brand-card/40 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-brand-red font-bold text-xs uppercase tracking-widest bg-brand-red/10 px-3 py-1 rounded-full border border-brand-red/20">The Secret Recipe</span>
+        <h2 class="font-outfit font-black text-3xl sm:text-5xl text-white mt-3">WHY LAHORE LOVES LFC</h2>
+        <p class="text-gray-400 text-sm mt-2">We bring quality ingredients and unmatched passion to every single fry basket.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-card p-8 rounded-3xl text-center space-y-4 hover:border-brand-gold/40 transition-all group">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-brand-gold to-brand-amber text-black flex items-center justify-center text-2xl font-black group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-drumstick-bite"></i>
+          </div>
+          <h3 class="font-outfit font-bold text-xl text-white">100% Fresh Halal Chicken</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Sourced fresh daily from verified local farms. Never frozen, ensuring maximum juiciness and flavor in every bite.</p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl text-center space-y-4 hover:border-brand-gold/40 transition-all group">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-brand-red to-brand-darkRed text-white flex items-center justify-center text-2xl font-black group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-pepper-hot"></i>
+          </div>
+          <h3 class="font-outfit font-bold text-xl text-white">Secret 12-Spice Blend</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Our proprietary marinade mixes authentic Lahori spices with ultra-crispy golden coating for an unforgettable crunch.</p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl text-center space-y-4 hover:border-brand-gold/40 transition-all group">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 text-white flex items-center justify-center text-2xl font-black group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-motorcycle"></i>
+          </div>
+          <h3 class="font-outfit font-bold text-xl text-white">30-Min Hot Express</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Insulated thermal delivery bags keep your food piping hot and super crispy straight from our fryer to your doorstep.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOMER TESTIMONIALS & REVIEWS SECTION -->
+  <section id="reviews" class="py-20 bg-brand-dark border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/20">Real Feedback</span>
+        <h2 class="font-outfit font-black text-3xl sm:text-5xl text-white mt-3">WHAT OUR FOODIES SAY</h2>
+        <p class="text-gray-400 text-sm mt-2">Thousands of satisfied fried chicken lovers across Lahore trust LFC every day.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-card p-6 rounded-3xl space-y-4">
+          <div class="flex items-center gap-1 text-brand-gold text-xs">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-gray-300 text-xs italic">"Hands down the best Zinger burger in Lahore! The crunch is unmatched and the spicy mayo sauce gives it the perfect hit."</p>
+          <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+            <div class="w-10 h-10 rounded-full bg-brand-red/30 flex items-center justify-center text-white font-bold text-xs">AH</div>
+            <div>
+              <p class="font-bold text-xs text-white">Ali Hassan</p>
+              <p class="text-[10px] text-gray-500">Gulberg III, Lahore</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl space-y-4">
+          <div class="flex items-center gap-1 text-brand-gold text-xs">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-gray-300 text-xs italic">"The 9-piece Zinger Bucket was delivered piping hot in 25 minutes! The family deal price is super reasonable for the quantity."</p>
+          <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+            <div class="w-10 h-10 rounded-full bg-brand-gold/30 flex items-center justify-center text-brand-gold font-bold text-xs">UK</div>
+            <div>
+              <p class="font-bold text-xs text-white">Usman Khan</p>
+              <p class="text-[10px] text-gray-500">DHA Phase 5, Lahore</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl space-y-4">
+          <div class="flex items-center gap-1 text-brand-gold text-xs">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-gray-300 text-xs italic">"Their Zinger Paratha Roll and Cheese Pizza are a killer combination. Placing orders via WhatsApp is so smooth!"</p>
+          <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+            <div class="w-10 h-10 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-xs">FZ</div>
+            <div>
+              <p class="font-bold text-xs text-white">Fatima Zahra</p>
+              <p class="text-[10px] text-gray-500">Johar Town, Lahore</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE FOOTER WITH DEVELOPER CREDITS -->
+  <footer id="about" class="bg-black py-16 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold">LFC</div>
+            <span class="font-outfit font-black text-2xl text-white">LFC.</span>
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed">Serving Lahore's crunchiest fried chicken, burgers, wraps & pizzas with passion since day one.</p>
+        </div>
+
+        <div>
+          <h4 class="font-outfit font-bold text-sm text-white mb-4 uppercase tracking-wider">Quick Navigation</h4>
+          <ul class="space-y-2 text-xs text-gray-400">
+            <li><a href="#hero" class="hover:text-brand-gold">Home Showcase</a></li>
+            <li><a href="#menu" class="hover:text-brand-gold">Crispy Menu</a></li>
+            <li><a href="#deals" class="hover:text-brand-gold">Family Combos</a></li>
+            <li><a href="#locations" class="hover:text-brand-gold">Our Outlets</a></li>
+            <li><a href="#why-us" class="hover:text-brand-gold">Why Choose Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-outfit font-bold text-sm text-white mb-4 uppercase tracking-wider">Order Hotline</h4>
+          <p class="text-xs text-gray-400 mb-3">Direct Order Support via Phone & WhatsApp:</p>
+          <a href="https://wa.me/923224940181" target="_blank" id="footerWhatsappBtn" class="inline-flex items-center gap-2 text-emerald-400 font-bold text-base bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors">
+            <i class="fa-brands fa-whatsapp text-lg"></i> <span id="footerWhatsappText">03224940181</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        <p>© 2026 Lahore Fried Chicken (LFC). All Rights Reserved.</p>
+        <!-- Developer Credit Requested -->
+        <p class="font-medium text-gray-400">
+          Developer: <span class="text-brand-gold font-bold tracking-wide">Trivox Solutions</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+    <div id="cartBackdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+    <div id="cartPanel" class="absolute top-0 right-0 h-full w-full max-w-md bg-brand-card border-l border-white/10 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col pointer-events-auto">
+      
+      <div class="p-5 border-b border-white/10 flex items-center justify-between bg-black/40">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
+            <i class="fa-solid fa-cart-shopping text-lg"></i>
+          </div>
+          <div>
+            <h3 class="font-outfit font-bold text-lg text-white">Your Food Basket</h3>
+            <p class="text-xs text-gray-400" id="cartHeaderCount">0 items selected</p>
+          </div>
+        </div>
+        <button onclick="toggleCartDrawer()" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="cartItemsList" class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- Cart Items Injected Here -->
+      </div>
+
+      <div class="p-5 border-t border-white/10 bg-black/60 space-y-4">
+        
+        <div class="flex gap-2">
+          <input type="text" id="couponInput" placeholder="Promo Code (e.g. LFC15)" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-gold uppercase">
+          <button onclick="applyCoupon()" class="bg-white/10 hover:bg-white/20 text-white font-semibold text-xs px-4 rounded-xl transition-colors">Apply</button>
+        </div>
+        <p id="couponMsg" class="text-[11px] hidden"></p>
+
+        <div class="space-y-1.5 text-xs text-gray-400 border-t border-white/5 pt-3">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" class="text-white font-medium">Rs. 0</span>
+          </div>
+          <div class="flex justify-between text-emerald-400 hidden" id="discountRow">
+            <span>Discount</span>
+            <span id="cartDiscount">-Rs. 0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Delivery Fee</span>
+            <span id="cartDelivery" class="text-white font-medium">Rs. 150</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-white border-t border-white/10 pt-2">
+            <span>Total Bill</span>
+            <span id="cartGrandTotal" class="text-brand-gold font-outfit text-xl">Rs. 150</span>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <input type="text" id="custName" placeholder="Full Name *" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-gold">
+          <input type="tel" id="custPhone" placeholder="WhatsApp / Phone Number *" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-gold">
+          <textarea id="custAddress" rows="2" placeholder="Complete Delivery Address & Landmark *" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-gold"></textarea>
+          
+          <select id="custPayment" class="w-full bg-brand-surface border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+            <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+            <option value="JazzCash">JazzCash Mobile Wallet</option>
+            <option value="EasyPaisa">EasyPaisa Mobile Wallet</option>
+          </select>
+        </div>
+
+        <button onclick="submitOrderToWhatsApp()" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
+          <i class="fa-brands fa-whatsapp text-xl"></i>
+          <span class="font-outfit uppercase text-sm tracking-wider">Confirm Order via WhatsApp</span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ULTIMATE MULTI-FEATURE ADMIN PANEL MODAL -->
+  <div id="adminModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md overflow-y-auto p-4 sm:p-6 lg:p-10">
+    <div class="max-w-6xl mx-auto bg-brand-card border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+      
+      <!-- Admin Header -->
+      <div class="p-6 bg-brand-surface border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center">
+            <i class="fa-solid fa-sliders text-xl"></i>
+          </div>
+          <div>
+            <h2 class="font-outfit font-bold text-xl text-white">LFC Master Admin Control Suite</h2>
+            <p class="text-xs text-gray-400">Manage Categories, Menu, Hero Carousel, Promo Codes, Branches & WhatsApp Number</p>
+          </div>
+        </div>
+        <button onclick="closeAdminModal()" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Admin Navigation Tabs -->
+      <div class="flex items-center gap-2 px-6 pt-4 border-b border-white/10 overflow-x-auto no-scrollbar bg-black/30">
+        <button onclick="switchAdminTab('categoriesTab')" id="btn-categoriesTab" class="admin-tab-btn py-3 px-4 font-outfit text-xs font-bold border-b-2 border-brand-gold text-brand-gold flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-tags"></i> Custom Categories
+        </button>
+        <button onclick="switchAdminTab('itemsTab')" id="btn-itemsTab" class="admin-tab-btn py-3 px-4 font-outfit text-xs font-bold border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-utensils"></i> Menu Inventory
+        </button>
+        <button onclick="switchAdminTab('heroTab')" id="btn-heroTab" class="admin-tab-btn py-3 px-4 font-outfit text-xs font-bold border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-images"></i> Hero Carousel
+        </button>
+        <button onclick="switchAdminTab('promoTab')" id="btn-promoTab" class="admin-tab-btn py-3 px-4 font-outfit text-xs font-bold border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-ticket"></i> Promo Codes
+        </button>
+        <button onclick="switchAdminTab('settingsTab')" id="btn-settingsTab" class="admin-tab-btn py-3 px-4 font-outfit text-xs font-bold border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-gear"></i> Store Settings & Locations
+        </button>
+      </div>
+
+      <!-- Admin Content Body -->
+      <div class="p-6">
+
+        <!-- TAB 1: CUSTOM CATEGORIES MANAGEMENT -->
+        <div id="tab-categoriesTab" class="admin-tab-content space-y-6">
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-solid fa-plus-circle text-brand-gold"></i> Create Custom Category
+            </h3>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input type="text" id="newCategoryName" placeholder="Category Name (e.g. Shawarma, Beverages, Desserts)" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <button onclick="addCustomCategory()" class="bg-gradient-to-r from-brand-gold to-brand-amber text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase font-outfit tracking-wider transition-all whitespace-nowrap">
+                <i class="fa-solid fa-plus mr-1"></i> Add Category
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-outfit font-bold text-sm text-white">Active Menu Categories</h4>
+            <div id="adminCategoryList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <!-- Dynamic Category Tags -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: MENU INVENTORY & DISHES -->
+        <div id="tab-itemsTab" class="admin-tab-content hidden space-y-6">
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-solid fa-drumstick-bite text-brand-gold"></i> Add / Edit Dish
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input type="text" id="newItemName" placeholder="Item Title (e.g. Zinger Supreme)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <select id="newItemCat" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+                <!-- Populated dynamically from categories -->
+              </select>
+              <input type="number" id="newItemPrice" placeholder="Price in PKR (e.g. 590)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input type="text" id="newItemDesc" placeholder="Description / Ingredients..." class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              
+              <div class="flex gap-2">
+                <input type="text" id="newItemImgUrl" placeholder="Image URL OR Upload File ->" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+                <label class="bg-white/10 hover:bg-white/20 text-white text-xs px-3 py-2.5 rounded-xl cursor-pointer flex items-center gap-1 border border-white/10 transition-colors">
+                  <i class="fa-solid fa-upload"></i>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'newItemImgUrl')">
+                </label>
+              </div>
+            </div>
+
+            <button onclick="addNewMenuItem()" class="w-full bg-brand-gold hover:bg-brand-amber text-black font-bold py-3 rounded-xl transition-colors font-outfit text-sm uppercase tracking-wider">
+              Save Item to Menu
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white">Live Menu Inventory</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs text-gray-300">
+                <thead class="bg-white/5 uppercase text-gray-400 font-semibold border-b border-white/10">
+                  <tr>
+                    <th class="p-3">Item</th>
+                    <th class="p-3">Category</th>
+                    <th class="p-3">Price</th>
+                    <th class="p-3">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminMenuTable" class="divide-y divide-white/5">
+                  <!-- Admin Table Rows Injected Here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: HERO CAROUSEL IMAGES MANAGEMENT -->
+        <div id="tab-heroTab" class="admin-tab-content hidden space-y-6">
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-solid fa-image text-brand-gold"></i> Add Hero Carousel Slide
+            </h3>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input type="text" id="heroImgUrlInput" placeholder="Enter Image URL or Upload File ->" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <label class="bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-2.5 rounded-xl cursor-pointer flex items-center gap-2 border border-white/10 transition-colors">
+                <i class="fa-solid fa-upload"></i>
+                <span>Upload</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'heroImgUrlInput')">
+              </label>
+              <button onclick="addHeroSlide()" class="bg-brand-gold hover:bg-brand-amber text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase font-outfit tracking-wider transition-all">
+                Add Slide
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-outfit font-bold text-sm text-white">Current Hero Slides</h4>
+            <div id="adminHeroSlidesGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <!-- Dynamic Hero Image Cards -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: PROMO CODES MANAGEMENT -->
+        <div id="tab-promoTab" class="admin-tab-content hidden space-y-6">
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-solid fa-ticket text-brand-gold"></i> Create New Promo Code
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <input type="text" id="promoCodeInput" placeholder="Code (e.g. LFC20)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold uppercase">
+              <input type="number" id="promoDiscountInput" placeholder="Discount % (e.g. 20)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <button onclick="addPromoCode()" class="bg-brand-gold hover:bg-brand-amber text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase font-outfit tracking-wider transition-all">
+                Create Code
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-outfit font-bold text-sm text-white">Active Coupons</h4>
+            <div id="adminPromoList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <!-- Promo List Injected Here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: STORE SETTINGS & LOCATIONS -->
+        <div id="tab-settingsTab" class="admin-tab-content hidden space-y-6">
+          
+          <!-- Sticky Bar Settings -->
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-solid fa-bullhorn text-brand-gold"></i> Edit Sticky Announcement Bar
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input type="text" id="adminStickyBadge" placeholder="Tag Badge (e.g. Hot Deal)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <input type="text" id="adminStickyText" placeholder="Main Announcement Text..." class="md:col-span-2 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+            </div>
+
+            <button onclick="saveStickyBarSettings()" class="bg-gradient-to-r from-brand-gold to-brand-amber text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase font-outfit tracking-wider transition-all">
+              Update Sticky Bar
+            </button>
+          </div>
+
+          <!-- WhatsApp Order Contact Settings -->
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-brands fa-whatsapp text-emerald-400"></i> Store Order WhatsApp Number
+            </h3>
+            
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input type="text" id="adminWhatsappInput" placeholder="WhatsApp Number with country code (e.g. 923224940181)" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <button onclick="saveWhatsappNumber()" class="bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase font-outfit tracking-wider transition-all">
+                Save Number
+              </button>
+            </div>
+          </div>
+
+          <!-- Add Locations Section -->
+          <div class="bg-brand-surface p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="font-outfit font-bold text-lg text-white flex items-center gap-2">
+              <i class="fa-solid fa-location-dot text-brand-gold"></i> Add Store Branch Location
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input type="text" id="locBranchName" placeholder="Branch Name (e.g. Gulberg III Branch)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <input type="text" id="locAddress" placeholder="Full Physical Address..." class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <input type="text" id="locPhone" placeholder="Phone Number (e.g. 0322-4940181)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input type="text" id="locTiming" placeholder="Opening Hours (e.g. 12:00 PM - 02:00 AM)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <input type="text" id="locMapUrl" placeholder="Google Maps Share Link (Optional)" class="bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold">
+            </div>
+
+            <button onclick="addNewLocation()" class="bg-brand-gold hover:bg-brand-amber text-black font-bold px-6 py-2.5 rounded-xl text-xs font-outfit uppercase tracking-wider transition-all">
+              Save Branch Location
+            </button>
+
+            <div class="pt-4">
+              <h4 class="font-outfit font-bold text-sm text-white mb-3">Existing Store Branches</h4>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-gray-300">
+                  <thead class="bg-black/40 uppercase text-gray-400 border-b border-white/10">
+                    <tr>
+                      <th class="p-3">Branch</th>
+                      <th class="p-3">Address</th>
+                      <th class="p-3">Phone</th>
+                      <th class="p-3">Timing</th>
+                      <th class="p-3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminLocTable" class="divide-y divide-white/5">
+                    <!-- Admin Location Rows Injected Here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAVBAR -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-lg border-t border-white/10 px-6 py-3 flex items-center justify-around">
+    <a href="#hero" class="flex flex-col items-center gap-1 text-gray-400 hover:text-brand-gold">
+      <i class="fa-solid fa-house text-lg"></i>
+      <span class="text-[10px]">Home</span>
+    </a>
+    <a href="#menu" class="flex flex-col items-center gap-1 text-gray-400 hover:text-brand-gold">
+      <i class="fa-solid fa-utensils text-lg"></i>
+      <span class="text-[10px]">Menu</span>
+    </a>
+    <button onclick="toggleCartDrawer()" class="flex flex-col items-center gap-1 text-brand-gold">
+      <div class="relative">
+        <i class="fa-solid fa-bag-shopping text-xl"></i>
+        <span id="mobileCartBadge" class="absolute -top-2 -right-3 bg-brand-red text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+      </div>
+      <span class="text-[10px] font-bold">Cart</span>
+    </button>
+    <a href="#locations" class="flex flex-col items-center gap-1 text-gray-400 hover:text-brand-gold">
+      <i class="fa-solid fa-location-dot text-lg"></i>
+      <span class="text-[10px]">Branches</span>
+    </a>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // --- DEFAULT INITIAL DATA ---
+    const defaultCategories = ["All", "Burgers", "Pizzas", "Rolls", "Buckets", "Deals"];
+
+    const defaultHeroSlides = [
+      { id: 1, image: "hero section (1).png" },
+      { id: 2, image: "hero section (2).png" },
+      { id: 3, image: "hero section (3).png" },
+      { id: 4, image: "hero section (4).png" }
+    ];
+
+    const defaultMenuItems = [
+      { id: 1, name: "Crispy Zinger Burger", cat: "Burgers", price: 490, desc: "Ultra-crunchy chicken thigh fillet with fresh iceberg & spicy mayo", image: "hero section (1).png" },
+      { id: 2, name: "Zinger Paratha Roll", cat: "Rolls", price: 380, desc: "Crispy tender strips wrapped in golden crispy paratha with garlic sauce", image: "hero section (2).png" },
+      { id: 3, name: "Extra Cheese Loaded Pizza", cat: "Pizzas", price: 1290, desc: "Melted mozzarella, spicy chicken chunks, black olives & capsicum", image: "hero section (3).png" },
+      { id: 4, name: "9-Piece Zinger Bucket", cat: "Buckets", price: 1850, desc: "9 Pieces of signature crispy hot fried chicken with 2 garlic dips", image: "hero section (4).png" },
+      { id: 5, name: "Tower Burger Supreme", cat: "Burgers", price: 690, desc: "Double zinger patty, cheese slice, hashbrown & spicy chipotle sauce", image: "hero section (1).png" },
+      { id: 6, name: "Family Feast Combo", cat: "Deals", price: 2890, desc: "4 Zinger Burgers, 4 Pc Fried Chicken, 1 Large Fries, 1.5L Drink", image: "hero section (1).png" }
+    ];
+
+    const defaultLocations = [
+      { id: 101, name: "Gulberg III Main Branch", address: "Main Boulevard, near Liberty Roundabout, Gulberg III, Lahore", phone: "0322-4940181", timing: "12:00 PM - 02:00 AM", map: "https://maps.google.com" },
+      { id: 102, name: "DHA Phase 5 Outlet", address: "Commercial Area, Phase 5 DHA, Lahore", phone: "0322-4940181", timing: "12:00 PM - 03:00 AM", map: "https://maps.google.com" },
+      { id: 103, name: "Johar Town Branch", address: "G-3 Market, Boulevard Road, Johar Town, Lahore", phone: "0322-4940181", timing: "01:00 PM - 02:00 AM", map: "https://maps.google.com" }
+    ];
+
+    const defaultStickyBar = {
+      badge: "Hot Deal",
+      text: "🔥 Flat 15% OFF on Family Bundles | Use Code: <strong class='text-brand-gold underline'>LFC15</strong>"
+    };
+
+    const defaultPromos = [
+      { code: "LFC15", discount: 0.15 }
+    ];
+
+    // --- LOCALSTORAGE LOADERS ---
+    let categories = JSON.parse(localStorage.getItem("lfc_categories")) || defaultCategories;
+    let heroSlides = JSON.parse(localStorage.getItem("lfc_hero_slides")) || defaultHeroSlides;
+    let menuData = JSON.parse(localStorage.getItem("lfc_menu_items")) || defaultMenuItems;
+    let locationData = JSON.parse(localStorage.getItem("lfc_locations")) || defaultLocations;
+    let stickyBarData = JSON.parse(localStorage.getItem("lfc_sticky_bar")) || defaultStickyBar;
+    let promoCodes = JSON.parse(localStorage.getItem("lfc_promos")) || defaultPromos;
+    let storeWhatsapp = localStorage.getItem("lfc_whatsapp") || "923224940181";
+
+    let cart = [];
+    let selectedCategory = "All";
+    let activeDiscount = 0;
+    let currentHeroIndex = 0;
+
+
+    // --- HERO SLIDER LOGIC ---
+    function updateHeroSlide() {
+      const imgElem = document.getElementById("heroImage");
+      const dotsContainer = document.getElementById("heroDots");
+      if(!imgElem || heroSlides.length === 0) return;
+
+      if (currentHeroIndex >= heroSlides.length) currentHeroIndex = 0;
+
+      imgElem.style.opacity = "0";
+      setTimeout(() => {
+        imgElem.src = heroSlides[currentHeroIndex].image;
+        imgElem.style.opacity = "1";
+      }, 200);
+
+      dotsContainer.innerHTML = heroSlides.map((_, idx) => `
+        <span onclick="setHeroSlide(${idx})" class="${idx === currentHeroIndex ? 'w-3 h-3 rounded-full bg-brand-gold' : 'w-2.5 h-2.5 rounded-full bg-white/30'} cursor-pointer transition-all"></span>
+      `).join('');
+    }
+
+    function nextHeroSlide() {
+      if (heroSlides.length === 0) return;
+      currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+      updateHeroSlide();
+    }
+
+    function prevHeroSlide() {
+      if (heroSlides.length === 0) return;
+      currentHeroIndex = (currentHeroIndex - 1 + heroSlides.length) % heroSlides.length;
+      updateHeroSlide();
+    }
+
+    function setHeroSlide(idx) {
+      currentHeroIndex = idx;
+      updateHeroSlide();
+    }
+
+    setInterval(nextHeroSlide, 5000);
+
+
+    // --- CATEGORY CONTROLLER ---
+    function renderCategoryButtons() {
+      const container = document.getElementById("categoryContainer");
+      container.innerHTML = categories.map(cat => `
+        <button onclick="setCategory('${cat}')" class="px-5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${selectedCategory === cat ? 'bg-brand-gold text-black shadow-lg' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}">
+          ${cat}
+        </button>
+      `).join('');
+    }
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      renderCategoryButtons();
+      renderMenuItems();
+    }
+
+    function addCustomCategory() {
+      const catInput = document.getElementById("newCategoryName");
+      const name = catInput.value.trim();
+
+      if (!name) {
+        alert("Please enter a category name.");
+        return;
+      }
+
+      if (categories.some(c => c.toLowerCase() === name.toLowerCase())) {
+        alert("Category already exists!");
+        return;
+      }
+
+      categories.push(name);
+      localStorage.setItem("lfc_categories", JSON.stringify(categories));
+
+      catInput.value = "";
+      renderCategoryButtons();
+      renderAdminCategoryList();
+      populateCategorySelect();
+    }
+
+    function deleteCategory(catName) {
+      if (catName === "All") {
+        alert("Cannot delete the 'All' category.");
+        return;
+      }
+
+      if (!confirm(`Are you sure you want to delete category '${catName}'?`)) return;
+
+      categories = categories.filter(c => c !== catName);
+      localStorage.setItem("lfc_categories", JSON.stringify(categories));
+
+      if (selectedCategory === catName) selectedCategory = "All";
+
+      renderCategoryButtons();
+      renderAdminCategoryList();
+      populateCategorySelect();
+      renderMenuItems();
+    }
+
+    function renderAdminCategoryList() {
+      const container = document.getElementById("adminCategoryList");
+      if (!container) return;
+
+      container.innerHTML = categories.map(cat => `
+        <div class="bg-black/40 border border-white/10 p-3 rounded-xl flex items-center justify-between">
+          <span class="text-xs font-bold text-white">${cat}</span>
+          ${cat !== 'All' ? `
+            <button onclick="deleteCategory('${cat}')" class="text-brand-red hover:underline text-xs font-bold">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          ` : '<span class="text-[10px] text-gray-500 uppercase">Default</span>'}
+        </div>
+      `).join('');
+    }
+
+    function populateCategorySelect() {
+      const select = document.getElementById("newItemCat");
+      if (!select) return;
+
+      const validCats = categories.filter(c => c !== "All");
+      select.innerHTML = validCats.map(c => `<option value="${c}">${c}</option>`).join('');
+    }
+
+
+    // --- MENU CONTROLLER ---
+    function renderMenuItems() {
+      const grid = document.getElementById("foodGrid");
+      const search = document.getElementById("searchInput").value.toLowerCase();
+
+      const filtered = menuData.filter(item => {
+        const matchesCat = (selectedCategory === "All" || item.cat === selectedCategory);
+        const matchesSearch = item.name.toLowerCase().includes(search) || item.desc.toLowerCase().includes(search);
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No items found matching your search.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-card rounded-2xl p-4 flex flex-col justify-between hover:border-brand-gold/40 transition-all group">
+          <div>
+            <div class="relative h-44 rounded-xl overflow-hidden bg-black/40 mb-3 flex items-center justify-center">
+              <img src="${item.image}" alt="${item.name}" class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm text-brand-gold text-[10px] font-bold px-2 py-1 rounded-md border border-brand-gold/30">
+                ${item.cat}
+              </span>
+            </div>
+            <h3 class="font-outfit font-bold text-base text-white group-hover:text-brand-gold transition-colors">${item.name}</h3>
+            <p class="text-xs text-gray-400 mt-1 line-clamp-2">${item.desc}</p>
+          </div>
+
+          <div class="flex items-center justify-between mt-4 pt-3 border-t border-white/5">
+            <div>
+              <span class="text-[10px] text-gray-500 uppercase block">Price</span>
+              <span class="font-outfit font-extrabold text-brand-gold text-lg">Rs. ${item.price}</span>
+            </div>
+            <button onclick="addToCart(${item.id})" class="bg-gradient-to-r from-brand-red to-brand-darkRed hover:from-brand-gold hover:to-brand-amber hover:text-black text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-1.5">
+              <i class="fa-solid fa-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderDeals() {
+      const container = document.getElementById("dealsContainer");
+      const deals = menuData.filter(i => i.cat === "Deals" || i.price > 1500);
+
+      container.innerHTML = deals.map(deal => `
+        <div class="glass-card rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 border border-brand-gold/20">
+          <img src="${deal.image}" alt="${deal.name}" class="w-36 h-36 object-contain">
+          <div class="space-y-2 text-center sm:text-left flex-1">
+            <span class="bg-brand-red text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full">Mega Savings</span>
+            <h3 class="font-outfit font-bold text-xl text-white">${deal.name}</h3>
+            <p class="text-xs text-gray-400">${deal.desc}</p>
+            <div class="flex items-center justify-between pt-2">
+              <span class="font-outfit font-black text-2xl text-brand-gold">Rs. ${deal.price}</span>
+              <button onclick="addToCart(${deal.id})" class="bg-brand-gold hover:bg-brand-amber text-black font-bold px-5 py-2 rounded-xl text-xs uppercase tracking-wider transition-all">
+                Claim Bundle
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+
+    // --- HERO SLIDES ADMIN MANAGER ---
+    function addHeroSlide() {
+      const input = document.getElementById("heroImgUrlInput");
+      const url = input.value.trim();
+
+      if (!url) {
+        alert("Please enter or upload an image.");
+        return;
+      }
+
+      heroSlides.push({ id: Date.now(), image: url });
+      localStorage.setItem("lfc_hero_slides", JSON.stringify(heroSlides));
+
+      input.value = "";
+      updateHeroSlide();
+      renderAdminHeroGrid();
+    }
+
+    function deleteHeroSlide(id) {
+      if (heroSlides.length <= 1) {
+        alert("You must keep at least 1 hero slide.");
+        return;
+      }
+
+      heroSlides = heroSlides.filter(s => s.id !== id);
+      localStorage.setItem("lfc_hero_slides", JSON.stringify(heroSlides));
+
+      currentHeroIndex = 0;
+      updateHeroSlide();
+      renderAdminHeroGrid();
+    }
+
+    function renderAdminHeroGrid() {
+      const grid = document.getElementById("adminHeroSlidesGrid");
+      if (!grid) return;
+
+      grid.innerHTML = heroSlides.map((slide) => `
+        <div class="relative bg-black/50 border border-white/10 rounded-xl p-2 group">
+          <img src="${slide.image}" class="w-full h-24 object-contain rounded-lg">
+          <button onclick="deleteHeroSlide(${slide.id})" class="absolute top-1 right-1 bg-brand-red text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-lg hover:scale-110 transition-transform">
+            ✕
+          </button>
+        </div>
+      `).join('');
+    }
+
+
+    // --- PROMO CODES ADMIN MANAGER ---
+    function addPromoCode() {
+      const codeInput = document.getElementById("promoCodeInput");
+      const discountInput = document.getElementById("promoDiscountInput");
+
+      const code = codeInput.value.trim().toUpperCase();
+      const disc = parseFloat(discountInput.value) / 100;
+
+      if (!code || isNaN(disc) || disc <= 0 || disc > 1) {
+        alert("Please enter a valid promo code and discount percentage (1-100%).");
+        return;
+      }
+
+      promoCodes.push({ code, discount: disc });
+      localStorage.setItem("lfc_promos", JSON.stringify(promoCodes));
+
+      codeInput.value = "";
+      discountInput.value = "";
+      renderAdminPromoList();
+    }
+
+    function deletePromoCode(code) {
+      promoCodes = promoCodes.filter(p => p.code !== code);
+      localStorage.setItem("lfc_promos", JSON.stringify(promoCodes));
+      renderAdminPromoList();
+    }
+
+    function renderAdminPromoList() {
+      const container = document.getElementById("adminPromoList");
+      if (!container) return;
+
+      container.innerHTML = promoCodes.map(p => `
+        <div class="bg-black/40 border border-white/10 p-3 rounded-xl flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-brand-gold uppercase block">${p.code}</span>
+            <span class="text-[10px] text-gray-400">${p.discount * 100}% OFF</span>
+          </div>
+          <button onclick="deletePromoCode('${p.code}')" class="text-brand-red hover:underline text-xs font-bold">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+
+    // --- STORE SETTINGS (WHATSAPP & STICKY BAR) ---
+    function renderStickyBar() {
+      document.getElementById("announcementBadge").textContent = stickyBarData.badge;
+      document.getElementById("announcementText").innerHTML = stickyBarData.text;
+
+      document.getElementById("adminStickyBadge").value = stickyBarData.badge;
+      document.getElementById("adminStickyText").value = stickyBarData.text;
+    }
+
+    function saveStickyBarSettings() {
+      const badge = document.getElementById("adminStickyBadge").value.trim();
+      const text = document.getElementById("adminStickyText").value.trim();
+
+      if (!badge || !text) {
+        alert("Please enter both badge text and announcement message.");
+        return;
+      }
+
+      stickyBarData = { badge, text };
+      localStorage.setItem("lfc_sticky_bar", JSON.stringify(stickyBarData));
+      renderStickyBar();
+      alert("Sticky Bar updated successfully!");
+    }
+
+    function renderWhatsappSettings() {
+      document.getElementById("adminWhatsappInput").value = storeWhatsapp;
+      document.getElementById("footerWhatsappText").textContent = storeWhatsapp;
+      document.getElementById("footerWhatsappBtn").href = `https://wa.me/${storeWhatsapp}`;
+    }
+
+    function saveWhatsappNumber() {
+      const num = document.getElementById("adminWhatsappInput").value.trim().replace(/[^0-9]/g, '');
+      if (!num) {
+        alert("Please enter a valid phone number with country code.");
+        return;
+      }
+
+      storeWhatsapp = num;
+      localStorage.setItem("lfc_whatsapp", storeWhatsapp);
+      renderWhatsappSettings();
+      alert("WhatsApp number saved successfully!");
+    }
+
+
+    // --- LOCATIONS ENGINE ---
+    function renderLocations() {
+      const grid = document.getElementById("locationsGrid");
+      if (!grid) return;
+
+      if (locationData.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-8 text-gray-500">No branch locations added yet.</div>`;
+        return;
+      }
+
+      grid.innerHTML = locationData.map(loc => `
+        <div class="glass-card rounded-3xl p-6 space-y-4 border border-white/10 hover:border-brand-gold/40 transition-all">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-gold/10 text-brand-gold flex items-center justify-center font-bold">
+              <i class="fa-solid fa-store text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-outfit font-bold text-lg text-white">${loc.name}</h3>
+              <p class="text-[11px] text-emerald-400 flex items-center gap-1 font-semibold">
+                <i class="fa-solid fa-clock"></i> ${loc.timing}
+              </p>
+            </div>
+          </div>
+
+          <p class="text-xs text-gray-400 leading-relaxed">
+            <i class="fa-solid fa-location-dot text-brand-gold mr-1"></i> ${loc.address}
+          </p>
+
+          <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+            <a href="tel:${loc.phone}" class="text-xs text-white font-bold flex items-center gap-1.5 hover:text-brand-gold">
+              <i class="fa-solid fa-phone text-brand-gold"></i> ${loc.phone}
+            </a>
+            ${loc.map ? `<a href="${loc.map}" target="_blank" class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg transition-colors">Directions</a>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addNewLocation() {
+      const name = document.getElementById("locBranchName").value.trim();
+      const address = document.getElementById("locAddress").value.trim();
+      const phone = document.getElementById("locPhone").value.trim();
+      const timing = document.getElementById("locTiming").value.trim();
+      const map = document.getElementById("locMapUrl").value.trim();
+
+      if (!name || !address || !phone) {
+        alert("Please enter Branch Name, Address, and Phone Number.");
+        return;
+      }
+
+      const newLoc = {
+        id: Date.now(),
+        name,
+        address,
+        phone,
+        timing: timing || "12:00 PM - 02:00 AM",
+        map
+      };
+
+      locationData.push(newLoc);
+      localStorage.setItem("lfc_locations", JSON.stringify(locationData));
+
+      document.getElementById("locBranchName").value = "";
+      document.getElementById("locAddress").value = "";
+      document.getElementById("locPhone").value = "";
+      document.getElementById("locTiming").value = "";
+      document.getElementById("locMapUrl").value = "";
+
+      renderLocations();
+      renderAdminLocationsTable();
+    }
+
+    function deleteLocation(id) {
+      if (!confirm("Are you sure you want to delete this branch?")) return;
+      locationData = locationData.filter(l => l.id !== id);
+      localStorage.setItem("lfc_locations", JSON.stringify(locationData));
+      renderLocations();
+      renderAdminLocationsTable();
+    }
+
+    function renderAdminLocationsTable() {
+      const table = document.getElementById("adminLocTable");
+      if (!table) return;
+
+      table.innerHTML = locationData.map(loc => `
+        <tr class="hover:bg-white/5">
+          <td class="p-3 font-semibold text-white">${loc.name}</td>
+          <td class="p-3 text-gray-400 truncate max-w-xs">${loc.address}</td>
+          <td class="p-3 text-gray-300">${loc.phone}</td>
+          <td class="p-3 text-gray-400">${loc.timing}</td>
+          <td class="p-3">
+            <button onclick="deleteLocation(${loc.id})" class="text-brand-red hover:underline font-bold">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+
+    // --- CART ENGINE ---
+    function addToCart(id) {
+      const item = menuData.find(i => i.id === id);
+      if (!item) return;
+
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+
+      updateCartUI();
+      toggleCartDrawer(true);
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((acc, curr) => acc + curr.qty, 0);
+      document.getElementById("cartCountBadge").textContent = count;
+      document.getElementById("mobileCartBadge").textContent = count;
+      document.getElementById("cartHeaderCount").textContent = `${count} items in basket`;
+
+      const list = document.getElementById("cartItemsList");
+
+      if (cart.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-12 space-y-3">
+            <i class="fa-solid fa-basket-shopping text-4xl text-gray-600"></i>
+            <p class="text-xs text-gray-400">Your basket is currently empty.</p>
+          </div>
+        `;
+      } else {
+        list.innerHTML = cart.map(item => `
+          <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
+            <div class="flex items-center gap-3">
+              <img src="${item.image}" class="w-12 h-12 object-contain rounded-lg bg-black/40 p-1">
+              <div>
+                <h4 class="font-bold text-xs text-white">${item.name}</h4>
+                <p class="text-[11px] text-brand-gold font-semibold">Rs. ${item.price * item.qty}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 bg-black/50 px-2 py-1 rounded-lg border border-white/10">
+              <button onclick="changeQty(${item.id}, -1)" class="text-gray-400 hover:text-white px-1 text-xs">-</button>
+              <span class="text-xs font-bold text-white w-4 text-center">${item.qty}</span>
+              <button onclick="changeQty(${item.id}, 1)" class="text-gray-400 hover:text-white px-1 text-xs">+</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const delivery = cart.length > 0 ? 150 : 0;
+      const discountVal = (subtotal * activeDiscount);
+      const total = Math.max(0, subtotal - discountVal + delivery);
+
+      document.getElementById("cartSubtotal").textContent = `Rs. ${subtotal}`;
+      document.getElementById("cartDelivery").textContent = `Rs. ${delivery}`;
+      document.getElementById("cartGrandTotal").textContent = `Rs. ${Math.round(total)}`;
+
+      if (activeDiscount > 0) {
+        document.getElementById("discountRow").classList.remove("hidden");
+        document.getElementById("cartDiscount").textContent = `-Rs. ${Math.round(discountVal)}`;
+      }
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(c => c.id === id);
+      if (!item) return;
+
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(c => c.id !== id);
+      }
+      updateCartUI();
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById("cartDrawer");
+      const backdrop = document.getElementById("cartBackdrop");
+      const panel = document.getElementById("cartPanel");
+
+      if (open === true || drawer.classList.contains("pointer-events-none")) {
+        drawer.classList.remove("pointer-events-none");
+        backdrop.classList.add("opacity-100");
+        panel.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.remove("opacity-100");
+        panel.classList.add("translate-x-full");
+        setTimeout(() => drawer.classList.add("pointer-events-none"), 300);
+      }
+    }
+
+    function applyCoupon() {
+      const code = document.getElementById("couponInput").value.trim().toUpperCase();
+      const msg = document.getElementById("couponMsg");
+
+      const promo = promoCodes.find(p => p.code === code);
+
+      if (promo) {
+        activeDiscount = promo.discount;
+        msg.textContent = `✓ ${promo.discount * 100}% Discount Applied Successfully!`;
+        msg.className = "text-[11px] text-emerald-400 font-semibold";
+      } else {
+        activeDiscount = 0;
+        msg.textContent = "✕ Invalid Promo Code";
+        msg.className = "text-[11px] text-brand-red font-semibold";
+      }
+      msg.classList.remove("hidden");
+      updateCartUI();
+    }
+
+    function submitOrderToWhatsApp() {
+      if (cart.length === 0) {
+        alert("Please add at least one item to your cart.");
+        return;
+      }
+
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const payment = document.getElementById("custPayment").value;
+
+      if (!name || !phone || !address) {
+        alert("Please complete your Name, Phone Number, and Delivery Address.");
+        return;
+      }
+
+      let orderText = `*🍗 NEW ORDER - LAHORE FRIED CHICKEN (LFC)*\n\n`;
+      orderText += `*Customer Details:*\n`;
+      orderText += `• Name: ${name}\n`;
+      orderText += `• Phone: ${phone}\n`;
+      orderText += `• Address: ${address}\n`;
+      orderText += `• Payment Method: ${payment}\n\n`;
+
+      orderText += `*Order Items:*\n`;
+      cart.forEach((item, idx) => {
+        orderText += `${idx + 1}. ${item.name} x${item.qty} = Rs. ${item.price * item.qty}\n`;
+      });
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const delivery = 150;
+      const discountVal = (subtotal * activeDiscount);
+      const grandTotal = Math.round(subtotal - discountVal + delivery);
+
+      orderText += `\n*Subtotal:* Rs. ${subtotal}\n`;
+      if (activeDiscount > 0) orderText += `*Discount:* -Rs. ${Math.round(discountVal)}\n`;
+      orderText += `*Delivery Fee:* Rs. ${delivery}\n`;
+      orderText += `*GRAND TOTAL:* Rs. ${grandTotal}\n\n`;
+      orderText += `Thank you for ordering with LFC!`;
+
+      const encoded = encodeURIComponent(orderText);
+      window.open(`https://wa.me/${storeWhatsapp}?text=${encoded}`, '_blank');
+    }
+
+
+    // --- ADMIN PANEL CONTROL & TABS ---
+    function openAdminModal() {
+      document.getElementById("adminModal").classList.remove("hidden");
+      renderAdminCategoryList();
+      populateCategorySelect();
+      renderAdminTable();
+      renderAdminHeroGrid();
+      renderAdminPromoList();
+      renderAdminLocationsTable();
+      renderStickyBar();
+      renderWhatsappSettings();
+    }
+
+    function closeAdminModal() {
+      document.getElementById("adminModal").classList.add("hidden");
+      if (window.location.hash === "#AdminLFC1") {
+        history.replaceState(null, null, ' ');
+      }
+    }
+
+    function switchAdminTab(tabId) {
+      // Hide all contents
+      document.querySelectorAll(".admin-tab-content").forEach(el => el.classList.add("hidden"));
+      // Deactivate all tab buttons
+      document.querySelectorAll(".admin-tab-btn").forEach(el => {
+        el.classList.remove("border-brand-gold", "text-brand-gold");
+        el.classList.add("border-transparent", "text-gray-400");
+      });
+
+      // Show targeted tab
+      document.getElementById(`tab-${tabId}`).classList.remove("hidden");
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      activeBtn.classList.remove("border-transparent", "text-gray-400");
+      activeBtn.classList.add("border-brand-gold", "text-brand-gold");
+    }
+
+    function checkAdminHash() {
+      if (window.location.hash === "#AdminLFC1") {
+        openAdminModal();
+      }
+    }
+
+    let uploadedBase64Image = "";
+
+    function handleImageUpload(e, targetInputId) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedBase64Image = evt.target.result;
+        document.getElementById(targetInputId).value = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function addNewMenuItem() {
+      const name = document.getElementById("newItemName").value.trim();
+      const cat = document.getElementById("newItemCat").value;
+      const price = parseFloat(document.getElementById("newItemPrice").value);
+      const desc = document.getElementById("newItemDesc").value.trim();
+      let img = document.getElementById("newItemImgUrl").value.trim();
+
+      if (!name || !price || !img) {
+        alert("Please enter Item Name, Price, and Image.");
+        return;
+      }
+
+      const newItem = {
+        id: Date.now(),
+        name,
+        cat,
+        price,
+        desc: desc || "Delicious crispy LFC special preparation.",
+        image: img
+      };
+
+      menuData.push(newItem);
+      localStorage.setItem("lfc_menu_items", JSON.stringify(menuData));
+
+      document.getElementById("newItemName").value = "";
+      document.getElementById("newItemPrice").value = "";
+      document.getElementById("newItemDesc").value = "";
+      document.getElementById("newItemImgUrl").value = "";
+
+      renderMenuItems();
+      renderDeals();
+      renderAdminTable();
+    }
+
+    function deleteMenuItem(id) {
+      if (!confirm("Are you sure you want to remove this item?")) return;
+      menuData = menuData.filter(i => i.id !== id);
+      localStorage.setItem("lfc_menu_items", JSON.stringify(menuData));
+      renderMenuItems();
+      renderDeals();
+      renderAdminTable();
+    }
+
+    function renderAdminTable() {
+      const table = document.getElementById("adminMenuTable");
+
+      table.innerHTML = menuData.map(item => `
+        <tr class="hover:bg-white/5">
+          <td class="p-3 font-semibold flex items-center gap-2">
+            <img src="${item.image}" class="w-8 h-8 rounded object-contain bg-black">
+            <span>${item.name}</span>
+          </td>
+          <td class="p-3 text-gray-400">${item.cat}</td>
+          <td class="p-3 text-brand-gold font-bold">Rs. ${item.price}</td>
+          <td class="p-3">
+            <button onclick="deleteMenuItem(${item.id})" class="text-brand-red hover:underline font-bold">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // --- INITIALIZATION ---
+    window.addEventListener("hashchange", checkAdminHash);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderStickyBar();
+      renderWhatsappSettings();
+      renderCategoryButtons();
+      renderMenuItems();
+      renderDeals();
+      renderLocations();
+      updateHeroSlide();
+      updateCartUI();
+      checkAdminHash();
+    });
+  </script>
+</body>
+</html>
